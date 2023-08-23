@@ -1,0 +1,42 @@
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 16px;
+    font-weight: 600;
+    background-color: #3b71ca;
+  }
+.card-scrollable{
+    overflow-y: auto;
+    max-height: 700px;
+  }
+  .card-scrollable::-webkit-scrollbar{
+      /* height: 5px; */
+      width: 6px;
+  }
+  .card-scrollable::-webkit-scrollbar-thumb,
+  .card-scrollable::-webkit-scrollbar-track {
+    border-radius: 92px;
+  }
+  .card-scrollable::-webkit-scrollbar-thumb {
+    background:#3b71ca ;
+  }
+  
+  .page-scrollable{
+    overflow-y: auto;
+    width: auto;
+  }
+  .page-scrollable::-webkit-scrollbar{
+      height: 8px;
+  }
+  .page-scrollable::-webkit-scrollbar-thumb {
+    background:#3b71ca ;
+  }
+  .page-scrollable::-webkit-scrollbar-thumb,
+  .page-scrollable::-webkit-scrollbar-track {
+    border-radius: 92px;
+  }
