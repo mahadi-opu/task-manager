@@ -8,17 +8,16 @@ const app = express();
 const port = process.env.PORT || 5000;
 require("dotenv").config();
 
+
+
+
 // middleware
-
 app.use(cors());
-
 app.use(express.json());
-
-app.use(express.static("public"));
-
 app.use("/", express.static(path.join(__dirname, "public")));
-
 // router.use(cors());
+
+
 
 // MongoDB
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.z2bkdeb.mongodb.net/?retryWrites=true&w=majority`;
@@ -65,54 +64,29 @@ async function run() {
 }
 run().catch(console.dir);
 
-const UPLOADS_FOLDER = "./public/assets/images";
-const storage = multer.diskStorage({
+
+
+// SET STORAGE
+var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, UPLOADS_FOLDER);
+    cb(null, 'public/assets/images')
   },
   filename: function (req, file, cb) {
-    const fileExt = path.extname(file.originalname);
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, file.fieldname + "-" + uniqueSuffix + fileExt);
+    cb(null, file.fieldname + '-' + Date.now())
   }
-});
+})
+var upload = multer({ storage: storage })
 
-const upload = multer({
-  storage: storage,
-  limits: {
-    fileSize: 1000000
-  },
-  fileFilter: (req, file, cb) => {
-    if (
-      file.mimetype === "image/png" ||
-      file.mimetype === "image/jpg" ||
-      file.mimetype === "image/jpeg" ||
-      file.mimetype === "application/pdf"
-    ) {
-      cb(null, true);
-    } else {
-      cb(new Error("only .jpg, .png or .jpeg format allowed!"));
-    }
+//Uploading multiple files 
+app.post('/uploadmultiple', upload.array('myFiles', 12), (req, res, next) => {
+  const files = req.files
+  if (!files) {
+    const error = new Error('Please choose files')
+    error.httpStatusCode = 400
+    return next(error)
   }
-});
-
-// app.post("/", upload.array("avatar", 3), (req, res) => {
-//   res.send("Hello Word ");
-// });
-
-// Define route to handle file upload
-/* app.post("/", upload.single("avatar"), (req, res) => {
-  const fileData = req.file.buffer; // Uploaded file binary data
-
-  userCollection.insertOne({ data: Binary(fileData) }, (err, result) => {
-    if (err) {
-      console.error("Error storing file in MongoDB:", err);
-      res.status(500).send("Internal Server Error");
-    } else {
-      res.send("File uploaded successfully");
-    }
-  });
-}); */
+    res.send(files)
+})
 
 // smhasanopu
 // El3nLRLK5BnSVjTK

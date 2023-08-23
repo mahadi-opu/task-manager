@@ -33,7 +33,7 @@ const getUsers = async () => {
                                         style=" height: 40px; width: 90%; border: 1px solid #F2F4F7;
                                         text-align-last: left; cursor: pointer; background-color: #f0f2f5; border-radius: 50px;
                                         padding: 0px 20px;font-family: inherit; font-size: 18px; color: #65676b;"
-                                        >Whats on your mind ?</button>
+                                        data-bs-toggle="modal" data-bs-target="#exampleModal2" id="create-post-btn2">Whats on your mind ?</button>
                                 </div>
                             
                                 <div style="height: 2px; background-color: #e4e6eb; margin: 10px 0px;"></div>
@@ -81,6 +81,14 @@ const getUsers = async () => {
     });
 };
 getUsers();
+
+
+
+
+
+
+
+
 
 const postForm = document.getElementById("post-form");
 
